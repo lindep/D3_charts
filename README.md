@@ -1,5 +1,5 @@
 
-# D3 charts, bar chart
+# D3 charts
 
 ## Use as
 ```javascript
