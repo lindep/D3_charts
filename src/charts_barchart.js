@@ -1,51 +1,18 @@
 /*
  * example HTML
  *
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Updatable Charts (4 of 4)</title>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js"></script>
-    <script src="charts_barchart.js"></script>
-    <style>
-        div {
-            padding: 20px 0 0 10px;
-        }
-    </style>
-</head>
-<body>
-    <div id="updatableChart"></div>
-    <script>
+ var dataSet = [77, 71, 82, 87, 84, 78, 80, 84, 86, 72, 71, 68, 75, 73, 80, 85, 86, 80];
+ dataSet = dataSet.map(function(d){return {y:d};});
+ var barChart = wi.charts.barChart()
+   .width(800)
+   .height(200)
+   .data(dataSet);
 
-        var dataSet = [];
-        var highTemperatures = dataSet[0] = [77, 71, 82, 87, 84, 78, 80, 84, 86, 72, 71, 68, 75, 73, 80, 85, 86, 80];
-        var lowTemperatures = dataSet[1] = highTemperatures.map(function(d) { return d - Math.random() * 30});
-        var milesRun = dataSet[2] = [2, 5, 4, 3, 1, 2, 1];
-        var fillColors = ['coral', 'steelblue', 'teal'];
-
-        var updatableChart = wi.charts.barChart()
-        .width(800)
-        .data(highTemperatures.map(function(d){return {y:d};}));
-
-        d3.select('#updatableChart')
-            .call(updatableChart);
-
-        window.setTimeout(function() {
-            updatableChart.height(450);
-        }, 1000);
-
-        var i = 1;
-        window.setInterval(function() {
-            updatableChart.data(dataSet[i]);
-            i = (i+1) % 3 ;
-        }, 2500);
-
-    </script>
-</body>
-</html>
+ // Update chart
+ barChart
+   .height(300)
+   .width(300)
+   .data(dataSet.map(function(d) {return {y:d - Math.random() * 30};}));
  */
 
 "use strict";
