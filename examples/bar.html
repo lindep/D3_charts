@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Charts</title>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-alpha1/jquery.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.12/d3.min.js"></script>
+    <script src="../src/charts_barchart.js"></script>
+    <style>
+        div {
+            padding: 20px 0 0 10px;
+        }
+    </style>
+</head>
+<body>
+  <div>
+    <label for="amimate">Auto update</label><input type="checkbox" id="animate" />
+    <span id="chartInfo"></span>
+    <span id="chartInfoEle"></span>
+  </div>
+
+  <div id="chart"></div>
+  <script>
+
+      function getRandomIntInclusive(min, max) {
+        return ~~(Math.random() * (max - min + 1)) + min;
+      }
+
+        var dataSet = [];
+        dataSet[0] = [77, 71, 82, 87, 84, 78, 80, 84, 86, 72, 71, 68, 75, 73, 80, 85, 86, 80];
+        dataSet[1] = dataSet[0].map(function(d) { return d - Math.random() * 30});
+        dataSet[2] = [2, 5, 4, 3, 1, 2, 1];
+        var fillColors = ['coral', 'steelblue', 'teal'];
+        var minW = 150, maxW = 850;
+        var minH = 70, maxH = 350;
+
+        var barChart = wi.charts.barChart()
+          .width(800)
+          .height(200)
+          .data(dataSet[0].map(function(d){return {y:d};}));
+
+        barChart.on('mouseover', function(d) {console.log(d)});
+        barChart.on('click', function(d) {console.log('click',d)})
+        d3.select('#chart')
+            .call(barChart);
+
+        // Update chart with new width, height and data set
+        window.setInterval(function() {
+          if (! $('#animate').is(':checked')) {
+            return;
+          }
+          var w = getRandomIntInclusive(minW, maxW);
+          var h = getRandomIntInclusive(minH, maxH);
+          $('#chartInfo').html('Width='+w+', Height='+h);
+          barChart.height(h).width(w);
+        }, 1000);
+
+        var i = 1;
+        window.setInterval(function() {
+          if (! $('#animate').is(':checked')) {
+            return;
+          }
+          var w = getRandomIntInclusive(minW, maxW);
+          var h = getRandomIntInclusive(minH, maxH);
+          // Create random data set
+          var randomDataSet = d3.range(getRandomIntInclusive(2,120)).map(function(d) {return getRandomIntInclusive(2,120)});
+          // Add a sorted data set every third time
+          if (i % 3 === 0) {
+            randomDataSet = randomDataSet.sort(function(a,b) {return a - b});
+          }
+          // transform data set into object literal, only a single key "y" needed
+          var data = randomDataSet.map(function(d){return {y:d};});
+          $('#chartInfo').html('Width='+w+', Height='+h);
+          $('#chartInfoEle').html('#elements='+data.length);
+            barChart
+              .data(data)
+              .height(h)
+              .width(w);
+            i = (i+1) % 3 ;
+        }, 4500);
+
+    </script>
+</body>
+</html>
