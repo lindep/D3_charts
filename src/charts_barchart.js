@@ -248,31 +248,11 @@ wi.charts.barChart = function barChart() {
                 .attr("height", function(d) { return chartHeight - y(d.y); })
                 .attr("width", barWidth - barPadding);
 
-
-
-              //var bars = barGroup.selectAll('g.bar').data(data, function(d,i){return i+""+d});
-
-            barGroup.exit()
-                      .transition()
-                      .duration(250)
-                      //.delay(function(d, i) { return (data.length - i) * 20; })
-                      //.style('opacity', 0)
-                      //.attr('height', 0)
-                      //.attr('y', chartHeight)
-                      //.attr('width', 0)
-                      .remove();
-
-
-             /*barGroup.selectAll('rect.display-bar')
+              barGroup.exit()
                 .transition()
-                .duration(500)
-                .attr("y", function(d) { return y(d.y); })
-                .attr("fill",function(d) { return color(d.y); })
-                .attr("height", function(d) { return chartHeight - y(d.y); })
-                .attr("width", barWidth - barPadding);    */
-
+                .duration(250)
+                .remove();
           }
-
         });
     }
 
@@ -303,10 +283,6 @@ wi.charts.barChart = function barChart() {
         if (!arguments.length) return data;
         data = value;
         if (typeof updateData === 'function') updateData();
-        return chart;
-    };
-    chart.extent = function(value) {
-        return extent;
         return chart;
     };
     chart = d3.rebind(chart, dispatch, 'on');
