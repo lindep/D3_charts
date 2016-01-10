@@ -1,6 +1,6 @@
 
 # D3 charts
-
+Bar chart based on the **Updatable chart pattern** described in this article [Towards Updatable D3.js Charts](http://www.toptal.com/d3-js/towards-reusable-d3-js-charts)
 ## Use as
 ```javascript
 var dataSet = [77, 71, 82, 87, 84, 78, 80, 84, 86, 72, 71, 68, 75, 73, 80, 85, 86, 80];
@@ -9,7 +9,9 @@ var barChart = wi.charts.barChart()
   .width(800)
   .height(200)
   .data(dataSet);
-
+// Bind chart to DOM element
+d3.select('#chart')
+      .call(barChart);
 // Update chart
 barChart
   .height(300)
@@ -18,8 +20,11 @@ barChart
 ```
 
 ## Examples
-Start node's http-server from root repo, this will start on localhost:8080 by default
+To run example clone repo and run node http-server from root of repo.  
+This is just an easy way to run the examples.
 ```bash
+git clone https://github.com/lindep/D3_charts.git d3_charts
+cd d3_charts
 http-server
 ```
 From a browser open example
